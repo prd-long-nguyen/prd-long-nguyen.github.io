@@ -15,6 +15,11 @@ const quizData = [
 // State management
 let currentLevel = 0;
 let currentState = 'start'; // 'start' | 'question' | 'reveal' | 'transition' | 'end'
+let musicTimer = null; // Timer for delayed music start
+
+// Audio elements
+const gameMusic = document.getElementById('gameMusic');
+const answerSound = document.getElementById('answerSound');
 
 // DOM elements
 const tilesContainer = document.getElementById('tilesContainer');
@@ -88,6 +93,9 @@ function loadLevel(levelIndex) {
     answerContainer.classList.remove('visible');
 
     currentState = 'question';
+    
+    // Start music with 3 second delay after question appears
+    startMusicWithDelay();
 }
 
 // Update timeline
@@ -96,8 +104,36 @@ function updateProgress(levelIndex) {
     timelineFill.style.width = `${percentage}%`;
 }
 
+// Music control functions
+function startMusicWithDelay() {
+    // Clear any existing timer
+    if (musicTimer) {
+        clearTimeout(musicTimer);
+    }
+    // Start music after 3 seconds
+    musicTimer = setTimeout(() => {
+        gameMusic.currentTime = 0;
+        gameMusic.play().catch(e => console.log('Audio play failed:', e));
+    }, 2000);
+}
+
+function stopMusic() {
+    // Clear the timer if music hasn't started yet
+    if (musicTimer) {
+        clearTimeout(musicTimer);
+        musicTimer = null;
+    }
+    // Stop and reset the music
+    gameMusic.pause();
+    gameMusic.currentTime = 0;
+}
+
 // Reveal the answer
 function revealAnswer() {
+    stopMusic(); // Stop music when answer is revealed
+    // Play answer reveal sound starting from 0.5s
+    answerSound.currentTime = 0.5;
+    answerSound.play().catch(e => console.log('Answer sound play failed:', e));
     answerContainer.classList.add('visible');
     currentState = 'reveal';
 }
@@ -120,6 +156,7 @@ function nextLevel() {
 
 // Show end screen
 function showEndScreen() {
+    stopMusic(); // Stop music when game ends
     currentState = 'end';
     showScreen('end');
     updateProgress(quizData.length);
