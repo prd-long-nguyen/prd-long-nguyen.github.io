@@ -7,8 +7,8 @@ const quizData = [
     { answer: "Cá mè", scramble: "m/á/c/è" },
     { answer: "Con cua", scramble: "a/c/c/o/u/n" },
     { answer: "Ăn chắc mặc dày", scramble: "mặc/ăn/dày/chắc" },
-    { answer: "Ăn kĩ no lâu, cầy sâu tốt lúa", scramble: "cầy/kĩ/ăn/tốt/no/sâu/lúa/lâu" },
-    { answer: "Ngựa chạy có bầy chim bay có bạn", scramble: "bầy/chim/bay/có/ngựa/bầy/có/bạn" },
+    { answer: "Ăn kĩ no lâu, cày sâu tốt lúa", scramble: "cày/kĩ/ăn/tốt/no/sâu/lúa/lâu" },
+    { answer: "Ngựa chạy có bầy, chim bay có bạn", scramble: "bầy/chim/bay/có/ngựa/chạy/có/bạn" },
     { answer: "No mất ngon, giận mất khôn", scramble: "khôn/no/ngon/giận/mất/mất" }
 ];
 
